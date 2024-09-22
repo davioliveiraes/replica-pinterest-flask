@@ -1,16 +1,18 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validatores import DataRequired, Email, Equalto, Length, ValidationError
+from wtforms.validators import DataRequired, Email, EqualTo, Length, ValidationError
+from fakepinterest.models import Usuario
+
 class FormLogin(FlaskForm):
    email = StringField("Email", validators=[DataRequired(), Email()])
-   senha = PasswordField("Senha", validatores=[DataRequired()])
-   botao = SubmitField("Fazer Login")
+   senha = PasswordField("Senha", validators=[DataRequired()])
+   botao_confirmacao = SubmitField("Fazer Login")
 
 class FormCriarConta(FlaskForm):
    email = StringField("Email", validators=[DataRequired(), Email()])
    username = StringField("Nome do usuário", validators=[DataRequired()])
    senha = PasswordField("Senha", validators=[DataRequired(), Length(6, 20)])
-   confirmacao_senha = PasswordField("Confirmacao de Senha", validators=[DataRequired(), Equalto("senha")])
+   confirmacao_senha = PasswordField("Confirmacao de Senha", validators=[DataRequired(), EqualTo("senha")])
    botao_confirmacao = SubmitField("Criar Conta")
 
    def validate_email(self, email):
